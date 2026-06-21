@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suppression de Compte — ZenUp</title>
+    <meta name="description" content="Demandez la suppression de votre compte ZenUp et de vos données personnelles. Procédure simple et sécurisée conforme au RGPD.">
+    <meta name="robots" content="noindex, nofollow">
+    <!-- CSP: empêche l'injection de scripts tiers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://elyfzehegeovuposqcws.supabase.co; img-src 'self' data:;">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --bg: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #1e1e35;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --border: rgba(99, 102, 241, 0.15);
+            --danger: #f43f5e;
+            --danger-light: #fb7185;
+            --success: #10b981;
+            --success-light: #34d399;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* ── AMBIENT BACKGROUND ── */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, rgba(244, 63, 94, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            animation: ambientShift 20s ease-in-out infinite;
+        }
+
+        @keyframes ambientShift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-2%, 1%) rotate(1deg); }
+            66% { transform: translate(1%, -1%) rotate(-0.5deg); }
+        }
+
+        /* ── HEADER ── */
+        .header {
+            width: 100%;
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 15, 26, 0.8);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--text), var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ── MAIN CONTAINER ── */
+        .container {
+            width: 100%;
+            max-width: 640px;
+            padding: 48px 24px 80px;
+        }
+
+        /* ── PAGE TITLE ── */
+        .page-title {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .page-title .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            color: var(--danger-light);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .page-title p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* ── CARDS ── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 24px;
+            transition: border-color 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(99, 102, 241, 0.25);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .card-title .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .icon-danger { background: rgba(244, 63, 94, 0.1); }
+        .icon-info { background: rgba(99, 102, 241, 0.1); }
+        .icon-warning { background: rgba(245, 158, 11, 0.1); }
+        .icon-success { background: rgba(16, 185, 129, 0.1); }
+
+        .card-title h2 {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        /* ── INFO LISTS ── */
+        .info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .info-list li .bullet {
+            flex-shrink: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-top: 7px;
+        }
+
+        .bullet-danger { background: var(--danger); }
+        .bullet-success { background: var(--success); }
+        .bullet-warning { background: var(--warning); }
+        .bullet-info { background: var(--primary); }
+
+        .info-list li strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ── FORM ── */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            padding-left: 4px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 20px;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-dim);
+        }
+
+        .form-input.textarea {
+            resize: vertical;
+            min-height: 100px;
+            max-height: 200px;
+            line-height: 1.6;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 6px;
+            padding-left: 4px;
+        }
+
+        .char-counter {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-align: right;
+            margin-top: 4px;
+            padding-right: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .char-counter.limit-near {
+            color: var(--warning);
+        }
+
+        .char-counter.limit-reached {
+            color: var(--danger);
+        }
+
+        /* ── HONEYPOT (invisible pour humains, visible pour bots) ── */
+        .hp-field {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            opacity: 0;
+            height: 0;
+            width: 0;
+            z-index: -1;
+            pointer-events: none;
+            tab-index: -1;
+        }
+
+        /* ── CHECKBOX ── */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 24px 0;
+            padding: 16px 20px;
+            border-radius: 16px;
+            background: rgba(244, 63, 94, 0.05);
+            border: 1px solid rgba(244, 63, 94, 0.1);
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg);
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 1px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .checkbox-group input[type="checkbox"]:checked {
+            background: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .checkbox-group input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .checkbox-group label {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .checkbox-group label strong {
+            color: var(--danger-light);
+        }
+
+        /* ── SUBMIT BUTTON ── */
+        .btn-submit {
+            width: 100%;
+            padding: 18px 32px;
+            border: none;
+            border-radius: 18px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #e11d48);
+            color: white;
+            box-shadow: 0 4px 24px rgba(244, 63, 94, 0.3);
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(244, 63, 94, 0.4);
+        }
+
+        .btn-danger:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-danger:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ── SPINNER ── */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ── SUCCESS STATE ── */
+        .success-container {
+            display: none;
+            text-align: center;
+            padding: 48px 32px;
+        }
+
+        .success-container.visible {
+            display: block;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid rgba(16, 185, 129, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 24px;
+        }
+
+        .success-container h2 {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: var(--success-light);
+        }
+
+        .success-container p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .success-container .ref-code {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 24px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            font-family: 'Inter', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--success-light);
+            letter-spacing: 0.05em;
+        }
+
+        /* ── ERROR / RATE LIMIT MESSAGE ── */
+        .error-msg {
+            display: none;
+            padding: 14px 20px;
+            border-radius: 14px;
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            color: var(--danger-light);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .error-msg.visible {
+            display: block;
+        }
+
+        /* ── LEGAL / RGPD SECTION ── */
+        .legal-section {
+            margin-top: 16px;
+            padding: 24px 28px;
+            border-radius: 20px;
+            background: rgba(99, 102, 241, 0.04);
+            border: 1px solid rgba(99, 102, 241, 0.08);
+        }
+
+        .legal-section h3 {
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .legal-section p {
+            font-size: 12px;
+            line-height: 1.8;
+            color: var(--text-dim);
+        }
+
+        .legal-section p + p {
+            margin-top: 8px;
+        }
+
+        .legal-section a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        .legal-section a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 32px 24px;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+
+        .footer p {
+            font-size: 11px;
+            color: var(--text-dim);
+            letter-spacing: 0.05em;
+        }
+
+        .footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .container {
+                padding: 32px 16px 60px;
+            }
+
+            .card {
+                padding: 24px 20px;
+                border-radius: 20px;
+            }
+
+            .page-title h1 {
+                font-size: 26px;
+            }
+
+            .header {
+                padding: 16px 20px;
+            }
+
+            .legal-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── HEADER ── -->
+    <header class="header">
+        <a href="#" class="logo" aria-label="ZenUp - Accueil">
+            <div class="logo-icon" aria-hidden="true">Z</div>
+            <span class="logo-text">ZenUp</span>
+        </a>
+    </header>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="container" id="mainContent">
+
+        <!-- Page Title -->
+        <div class="page-title">
+            <div class="badge" role="alert">⚠️ Action Irréversible</div>
+            <h1>Suppression de Compte</h1>
+            <p>
+                Vous pouvez demander la suppression complète de votre compte ZenUp et de toutes vos données personnelles associées en remplissant le formulaire ci-dessous.
+            </p>
+        </div>
+
+        <!-- ── CARD : Données Supprimées ── -->
+        <div class="card">
+            <div class="card-title">
+                <div class="icon icon-danger" aria-hidden="true">🗑️</div>
+                <h2>Données Supprimées Définitivement</h2>
+            </div>
+            <ul class="info-list">
+                <li>
+                    <span class="bullet bullet-danger" aria-hidden="true"></span>
+                    <span><strong>Profil utilisateur</strong> — Nom, prénom, pseudo, photo de profil, numéro de téléphone</span>
+                </li>
+                <li>
+                    <span class="bullet bullet-danger" aria-hidden="true"></span>
+                    <span><strong>Identifiants de connexion</strong> — Adresse email et mot de passe associés au compte</span>
+                </li>
+                <li>
+                    <span class="bullet bullet-danger" aria-hidden="true"></span>
+                    <span><strong>Contenus publiés</strong> — Posts, commentaires, photos publiées sur la plateforme</span>
+                </li>
+                <li>
+                    <span class="bullet bullet-danger" aria-hidden="true"></span>
+                    <span><strong>Favoris & bookmarks</strong> — Vos événements sauvegardés et préférences</span>
+                </li>
+                <li>
+                    <span class="bullet bullet-danger" aria-hidden="true"></span>
+                    <span><strong>Notifications</strong> — Historique complet des notifications</span>
+                </li>
+                <li>
+                    <span class="bullet bullet-danger" aria-hidden="true"></span>
+                    <span><strong>Données Zen Pulse</strong> — Votre historique d'humeur et statistiques bien-être</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ── CARD : Données Conservées ── -->
+        <div class="card">
+            <div class="card-title">
+                <div class="icon icon-warning" aria-hidden="true">📋</div>
+                <h2>Données Conservées Temporairement</h2>
+            </div>
+            <ul class="info-list">
+                <li>
+                    <span class="bullet bullet-warning" aria-hidden="true"></span>
+                    <span><strong>Données de facturation</strong> — Historique des transactions liées aux tickets et événements payants (conservé <strong>12 mois</strong> pour obligations légales et fiscales)</span>
+                </li>
+                <li>
+                    <span class="bullet bullet-warning" aria-hidden="true"></span>
+                    <span><strong>Logs de sécurité</strong> — Journaux d'accès anonymisés (conservés <strong>6 mois</strong> conformément aux obligations de sécurité)</span>
+                </li>
+            </ul>
+            <div class="legal-section" style="margin-top: 16px;">
+                <p>📌 Ces données sont conservées conformément à nos obligations légales (Code du Commerce, réglementation fiscale). Elles sont automatiquement supprimées à l'issue de la période de conservation.</p>
+            </div>
+        </div>
+
+        <!-- ── CARD : Procédure ── -->
+        <div class="card">
+            <div class="card-title">
+                <div class="icon icon-info" aria-hidden="true">📝</div>
+                <h2>Procédure de Suppression</h2>
+            </div>
+            <ul class="info-list">
+                <li>
+                    <span class="bullet bullet-info" aria-hidden="true"></span>
+                    <span><strong>Étape 1</strong> — Remplissez le formulaire ci-dessous avec l'adresse email associée à votre compte ZenUp</span>
+                </li>
+                <li>
+                    <span class="bullet bullet-info" aria-hidden="true"></span>
+                    <span><strong>Étape 2</strong> — Notre équipe vérifie votre identité et traite votre demande</span>
+                </li>
+                <li>
+                    <span class="bullet bullet-info" aria-hidden="true"></span>
+                    <span><strong>Étape 3</strong> — Votre compte et vos données personnelles sont supprimés sous <strong>72 heures maximum</strong></span>
+                </li>
+                <li>
+                    <span class="bullet bullet-info" aria-hidden="true"></span>
+                    <span><strong>Étape 4</strong> — Vous recevez un email de confirmation à votre adresse une fois la suppression effectuée</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ── FORM ── -->
+        <div class="card" id="formCard">
+            <div class="card-title">
+                <div class="icon icon-danger" aria-hidden="true">🔐</div>
+                <h2>Demande de Suppression</h2>
+            </div>
+
+            <form id="deleteForm" onsubmit="handleSubmit(event)" novalidate>
+                <div id="errorMsg" class="error-msg" role="alert"></div>
+
+                <!-- HONEYPOT — Invisible pour les humains, les bots le remplissent -->
+                <div class="hp-field" aria-hidden="true">
+                    <label for="website">Website</label>
+                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Adresse Email du Compte *</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="form-input" 
+                        placeholder="votre.email@exemple.com" 
+                        required
+                        autocomplete="email"
+                        maxlength="254"
+                        aria-describedby="emailHint"
+                    >
+                    <p class="form-hint" id="emailHint">L'adresse email exacte utilisée pour créer votre compte ZenUp</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="reason">Raison (Optionnel)</label>
+                    <textarea 
+                        id="reason" 
+                        class="form-input textarea" 
+                        placeholder="Dites-nous pourquoi vous souhaitez supprimer votre compte (cela nous aide à améliorer ZenUp)..."
+                        maxlength="1000"
+                        aria-describedby="reasonCounter"
+                    ></textarea>
+                    <div class="char-counter" id="reasonCounter">0 / 1000</div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="confirm" required aria-describedby="confirmLabel">
+                    <label for="confirm" id="confirmLabel">
+                        Je comprends que cette action est <strong>définitive et irréversible</strong>. Toutes mes données personnelles, contenus publiés et paramètres seront supprimés sous 72 heures. Les données de facturation seront conservées 12 mois conformément aux obligations légales.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit btn-danger" id="submitBtn">
+                    <span id="btnText">Demander la Suppression de Mon Compte</span>
+                    <div class="spinner" id="btnSpinner" style="display: none;"></div>
+                </button>
+            </form>
+        </div>
+
+        <!-- ── SUCCESS STATE ── -->
+        <div class="success-container" id="successState" role="status">
+            <div class="success-icon" aria-hidden="true">✅</div>
+            <h2>Demande Enregistrée</h2>
+            <p>
+                Votre demande de suppression de compte a été enregistrée avec succès. 
+                Notre équipe la traitera sous <strong>72 heures maximum</strong>. 
+                Vous recevrez un email de confirmation à l'adresse indiquée une fois la suppression effectuée.
+            </p>
+            <div class="ref-code" id="refCode" aria-label="Code de référence"></div>
+            <p style="margin-top: 20px; font-size: 12px;">
+                Conservez ce code de référence. Pour toute question, contactez <a href="mailto:legal@zenup.to" style="color: var(--success-light);">legal@zenup.to</a> en le mentionnant.
+            </p>
+        </div>
+
+        <!-- ── SECTION RGPD / VOS DROITS ── -->
+        <div class="card" id="legalCard">
+            <div class="card-title">
+                <div class="icon icon-success" aria-hidden="true">⚖️</div>
+                <h2>Vos Droits & Informations Légales</h2>
+            </div>
+            <div class="legal-section">
+                <h3>Responsable du Traitement</h3>
+                <p>
+                    <strong>Togoville Concept</strong> — Lomé, Togo<br>
+                    Contact : <a href="mailto:legal@zenup.to">legal@zenup.to</a>
+                </p>
+            </div>
+            <div class="legal-section" style="margin-top: 12px;">
+                <h3>Base Légale</h3>
+                <p>
+                    Le traitement de votre demande de suppression est fondé sur l'exercice de votre <strong>droit à l'effacement</strong> (Article 17 du RGPD). Les données de facturation sont conservées sur la base de nos <strong>obligations légales</strong>.
+                </p>
+            </div>
+            <div class="legal-section" style="margin-top: 12px;">
+                <h3>Vos Droits</h3>
+                <p>
+                    Conformément à la réglementation en vigueur, vous disposez des droits suivants concernant vos données personnelles :
+                </p>
+                <ul class="info-list" style="margin-top: 12px;">
+                    <li>
+                        <span class="bullet bullet-success" aria-hidden="true"></span>
+                        <span><strong>Droit d'accès</strong> — Obtenir une copie de vos données personnelles</span>
+                    </li>
+                    <li>
+                        <span class="bullet bullet-success" aria-hidden="true"></span>
+                        <span><strong>Droit de rectification</strong> — Corriger vos données inexactes</span>
+                    </li>
+                    <li>
+                        <span class="bullet bullet-success" aria-hidden="true"></span>
+                        <span><strong>Droit à l'effacement</strong> — Supprimer vos données (ce formulaire)</span>
+                    </li>
+                    <li>
+                        <span class="bullet bullet-success" aria-hidden="true"></span>
+                        <span><strong>Droit à la portabilité</strong> — Recevoir vos données dans un format lisible</span>
+                    </li>
+                    <li>
+                        <span class="bullet bullet-success" aria-hidden="true"></span>
+                        <span><strong>Droit d'opposition</strong> — Vous opposer au traitement de vos données</span>
+                    </li>
+                </ul>
+                <p style="margin-top: 12px;">
+                    Pour exercer l'un de ces droits, contactez-nous à <a href="mailto:legal@zenup.to">legal@zenup.to</a>. 
+                    Nous nous engageons à répondre dans un délai de <strong>30 jours</strong> conformément au RGPD.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+        <p>
+            ZenUp — Togoville Concept · 
+            <a href="mailto:legal@zenup.to">legal@zenup.to</a> · 
+            © 2024–2026 Tous droits réservés
+        </p>
+    </footer>
+
+    <script>
+        // ══════════════════════════════════════════════════════
+        // CONFIGURATION
+        // ══════════════════════════════════════════════════════
+        const SUPABASE_URL = 'https://elyfzehegeovuposqcws.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVseWZ6ZWhlZ2VvdnVwb3NxY3dzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3ODAxMTUsImV4cCI6MjA4NzM1NjExNX0.ZvSVjF5g0yqcLwXvJFMzFVqQoS8PanH_Bgce0evti0M';
+
+        // ══════════════════════════════════════════════════════
+        // RATE LIMITER — Max 3 demandes par 15 minutes
+        // ══════════════════════════════════════════════════════
+        const RATE_LIMIT_MAX = 3;
+        const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+
+        function getRateLimitData() {
+            try {
+                const data = JSON.parse(localStorage.getItem('zenup_del_rl') || '{"attempts":[],"blocked_until":null}');
+                return data;
+            } catch {
+                return { attempts: [], blocked_until: null };
+            }
+        }
+
+        function saveRateLimitData(data) {
+            try {
+                localStorage.setItem('zenup_del_rl', JSON.stringify(data));
+            } catch {
+                // localStorage not available (private browsing, etc.)
+            }
+        }
+
+        function checkRateLimit() {
+            const data = getRateLimitData();
+            const now = Date.now();
+
+            // Check if blocked
+            if (data.blocked_until && now < data.blocked_until) {
+                const remainMin = Math.ceil((data.blocked_until - now) / 60000);
+                return { allowed: false, message: `Trop de demandes. Veuillez réessayer dans ${remainMin} minute${remainMin > 1 ? 's' : ''}.` };
+            }
+
+            // Clean old attempts
+            data.attempts = data.attempts.filter(t => (now - t) < RATE_LIMIT_WINDOW_MS);
+
+            if (data.attempts.length >= RATE_LIMIT_MAX) {
+                data.blocked_until = now + RATE_LIMIT_WINDOW_MS;
+                saveRateLimitData(data);
+                return { allowed: false, message: 'Trop de demandes. Veuillez réessayer dans 15 minutes.' };
+            }
+
+            return { allowed: true };
+        }
+
+        function recordAttempt() {
+            const data = getRateLimitData();
+            data.attempts.push(Date.now());
+            saveRateLimitData(data);
+        }
+
+        // ══════════════════════════════════════════════════════
+        // SANITISATION — Empêche l'injection XSS/HTML
+        // ══════════════════════════════════════════════════════
+        function sanitizeInput(str) {
+            if (!str) return '';
+            return str
+                .replace(/[<>]/g, '') // Strip HTML tags characters
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#x27;')
+                .trim();
+        }
+
+        // ══════════════════════════════════════════════════════
+        // EMAIL VALIDATION — RFC 5322 simplified
+        // ══════════════════════════════════════════════════════
+        function isValidEmail(email) {
+            const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+            return re.test(email) && email.length <= 254;
+        }
+
+        // ══════════════════════════════════════════════════════
+        // REFERENCE CODE GENERATOR
+        // ══════════════════════════════════════════════════════
+        function generateRef() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let ref = 'DEL-';
+            // Use crypto.getRandomValues for better randomness if available
+            if (window.crypto && window.crypto.getRandomValues) {
+                const array = new Uint8Array(8);
+                window.crypto.getRandomValues(array);
+                for (let i = 0; i < 8; i++) {
+                    ref += chars.charAt(array[i] % chars.length);
+                }
+            } else {
+                for (let i = 0; i < 8; i++) {
+                    ref += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+            }
+            return ref;
+        }
+
+        // ══════════════════════════════════════════════════════
+        // UI HELPERS
+        // ══════════════════════════════════════════════════════
+        function showError(msg) {
+            const el = document.getElementById('errorMsg');
+            el.textContent = msg;
+            el.classList.add('visible');
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function hideError() {
+            document.getElementById('errorMsg').classList.remove('visible');
+        }
+
+        // Character counter for textarea
+        const reasonField = document.getElementById('reason');
+        const reasonCounter = document.getElementById('reasonCounter');
+
+        reasonField.addEventListener('input', function() {
+            const len = this.value.length;
+            reasonCounter.textContent = `${len} / 1000`;
+            reasonCounter.classList.remove('limit-near', 'limit-reached');
+            if (len >= 1000) {
+                reasonCounter.classList.add('limit-reached');
+            } else if (len >= 800) {
+                reasonCounter.classList.add('limit-near');
+            }
+        });
+
+        // ══════════════════════════════════════════════════════
+        // FORM SUBMISSION
+        // ══════════════════════════════════════════════════════
+        async function handleSubmit(e) {
+            e.preventDefault();
+            hideError();
+
+            // 1. Honeypot check — if filled, it's a bot
+            const honeypot = document.getElementById('website').value;
+            if (honeypot) {
+                // Silently pretend success to confuse the bot
+                document.getElementById('formCard').style.display = 'none';
+                const successEl = document.getElementById('successState');
+                successEl.classList.add('visible');
+                document.getElementById('refCode').textContent = 'Référence : DEL-00000000';
+                return;
+            }
+
+            // 2. Rate limit check
+            const rlCheck = checkRateLimit();
+            if (!rlCheck.allowed) {
+                showError(rlCheck.message);
+                return;
+            }
+
+            // 3. Get & validate inputs
+            const rawEmail = document.getElementById('email').value.trim();
+            const rawReason = document.getElementById('reason').value;
+            const confirmed = document.getElementById('confirm').checked;
+
+            // Email validation
+            if (!rawEmail) {
+                showError('Veuillez saisir votre adresse email.');
+                return;
+            }
+
+            if (!isValidEmail(rawEmail)) {
+                showError('Veuillez saisir une adresse email valide (ex: nom@exemple.com).');
+                return;
+            }
+
+            // Confirmation check
+            if (!confirmed) {
+                showError('Veuillez confirmer que vous comprenez que cette action est irréversible.');
+                return;
+            }
+
+            // 4. Sanitize & normalize
+            const email = rawEmail.toLowerCase().trim();
+            const reason = sanitizeInput(rawReason).substring(0, 1000) || null;
+
+            // 5. UI loading state
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+
+            submitBtn.disabled = true;
+            btnText.textContent = 'Envoi en cours...';
+            btnSpinner.style.display = 'block';
+
+            const refCode = generateRef();
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/deletion_requests`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        reason: reason,
+                        reference_code: refCode,
+                        status: 'pending',
+                        requested_at: new Date().toISOString()
+                    })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => null);
+                    if (errData && errData.message && (errData.message.includes('unique') || errData.message.includes('duplicate') || errData.code === '23505')) {
+                        showError('Une demande de suppression est déjà en cours pour cette adresse email. Si vous n\'avez pas reçu de confirmation sous 72h, contactez legal@zenup.to.');
+                    } else {
+                        throw new Error('Erreur serveur');
+                    }
+                    submitBtn.disabled = false;
+                    btnText.textContent = 'Demander la Suppression de Mon Compte';
+                    btnSpinner.style.display = 'none';
+                    return;
+                }
+
+                // 6. Record the attempt for rate limiting
+                recordAttempt();
+
+                // 7. Success — show confirmation
+                document.getElementById('formCard').style.display = 'none';
+                const successEl = document.getElementById('successState');
+                successEl.classList.add('visible');
+                document.getElementById('refCode').textContent = `Référence : ${refCode}`;
+                successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            } catch (err) {
+                console.error('Deletion request error:', err);
+                showError(
+                    'Une erreur est survenue lors de l\'envoi de votre demande. ' +
+                    'Veuillez réessayer ou contacter legal@zenup.to directement en précisant votre email de compte.'
+                );
+                submitBtn.disabled = false;
+                btnText.textContent = 'Demander la Suppression de Mon Compte';
+                btnSpinner.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
